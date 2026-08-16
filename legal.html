@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>저작권 · 고지 — LUNE</title>
+<meta name="description" content="저작권·오픈소스 고지와 이용약관·면책.">
+<meta name="theme-color" content="#F4F1EA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23161513' stroke-width='1.5'/%3E%3Cpath d='M16 5a11 11 0 000 22z' fill='%23161513'/%3E%3C/svg%3E">
+</head>
+<body data-page="legal">
+
+<canvas id="sky" class="sky" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar" id="topbar"></header>
+<aside class="side" id="sidebar"></aside>
+<div class="scrim" id="scrim" hidden></div>
+
+<main class="main" id="main" tabindex="-1">
+  <section class="section section--lead">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="micro">저작권 · 고지</span>
+        <h2 class="sec-title">무엇을 빌려 왔고<br>무엇을 약속하는가</h2>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="고지 문서">
+        <button class="tabs__btn is-on" role="tab" aria-selected="true"  data-tab="copyright">저작권 · 오픈소스</button>
+        <button class="tabs__btn"       role="tab" aria-selected="false" data-tab="terms">이용약관 · 면책</button>
+        <button class="tabs__btn"       role="tab" aria-selected="false" data-tab="privacy">개인정보처리방침</button>
+      </div>
+
+      <article class="legal" data-panel="copyright">
+        <h3>이 사이트</h3>
+        <p>
+          © <span data-year></span> LUNE. 사이트의 문안·디자인·코드에 대한 권리는 제작자에게 있습니다.
+          개인적 열람과 결과 공유는 자유롭게 하셔도 됩니다.
+        </p>
+
+        <h3>디자인 참고</h3>
+        <p>
+          레이아웃과 분위기는 Dribbble 에 공개된
+          <a href="https://dribbble.com/shots/27037805-Lune-Ate-Built-Minimalistic-Website-Responsive-Live-preview"
+             target="_blank" rel="noopener noreferrer">“Lune — Minimalistic Website”</a>
+          샷에서 <b>방향만</b> 참고했습니다. 원작의 코드·이미지·폰트 등 어떤 에셋도 사용하지 않았고,
+          모든 마크업과 스타일은 새로 작성했습니다. 원 디자인의 권리는 해당 저작자에게 있습니다.
+        </p>
+
+        <h3>글꼴</h3>
+        <ul class="legal__list">
+          <li><b>Noto Serif KR</b> · <b>Noto Sans KR</b> — SIL Open Font License 1.1, Google</li>
+          <li><b>IBM Plex Mono</b> — SIL Open Font License 1.1, IBM</li>
+        </ul>
+
+        <h3>계산에 쓰인 것</h3>
+        <ul class="legal__list">
+          <li><b>VSOP87</b> 행성 이론 — P. Bretagnon &amp; G. Francou (1988)</li>
+          <li><b>Astronomical Algorithms</b> — Jean Meeus. 장동·광행차·ΔT·율리우스일 환산</li>
+          <li><b>절기 시각 대조</b> — 한국천문연구원 공표값</li>
+          <li>명리 규칙(오호둔·오서둔·십성·십이운성·합충)은 전통 명리학의 공유 지식입니다</li>
+        </ul>
+        <p class="legal__muted">
+          외부 라이브러리를 쓰지 않았습니다. 천문 계산과 명식 산출 코드는 전부 이 사이트에서 직접 구현했습니다.
+        </p>
+      </article>
+
+      <article class="legal" data-panel="terms" hidden>
+        <h3>목적</h3>
+        <p>
+          이 서비스는 전통 명리학의 계산 규칙을 그대로 구현해 명식을 세우고, 그 성질을 설명합니다.
+          <b>계산은 검증되어 있으나 해석은 참고용입니다.</b>
+        </p>
+
+        <h3>면책</h3>
+        <p>
+          결과를 의료·법률·투자·진로 등 <b>중요한 결정의 근거로 삼지 마세요.</b>
+          이 서비스의 내용을 신뢰해 내린 판단으로 발생한 손해에 대해 제작자는 책임지지 않습니다.
+          궁합 결과 역시 특정 관계를 권하거나 말리는 판정이 아닙니다.
+        </p>
+
+        <h3>개인정보</h3>
+        <p>
+          <b>명식 계산 자체는 전부 브라우저 안에서 일어납니다.</b> 생년월일을 서버로 보내
+          계산하지 않습니다. 다만 구글 로그인을 하면 계정 정보와 저장을 선택한 명식이
+          서버에 보관됩니다. 자세한 내용은 <b>개인정보처리방침</b> 탭을 보세요.
+        </p>
+
+        <h3>정확도의 한계</h3>
+        <ul class="legal__list">
+          <li>양력 입력만 지원합니다.</li>
+          <li>대한민국 출생 기준입니다. 해외 출생은 해당 국가의 시간대 이력이 필요합니다.</li>
+          <li>명식 화면은 출생지를 서울(동경 126.98°)로 두고 계산합니다. 지역을 직접 고르려면 커플 궁합 화면을 쓰세요.</li>
+          <li>야자시(23시 이후)는 다음 날 일주로 넘기는 전통 방식을 따랐습니다. 자정 기준을 쓰는 유파와 결과가 달라집니다.</li>
+          <li>신강·신약과 궁합 점수는 유파마다 기준이 달라 <b>본 사이트가 정의한 간이 지표</b>입니다.</li>
+        </ul>
+      </article>
+
+      <article class="legal" data-panel="privacy" hidden>
+        <p class="legal__banner" id="privacyBackendNote" hidden></p>
+
+        <h3>1. 수집하는 항목</h3>
+        <p><b>로그인하지 않은 경우 — 수집하지 않습니다.</b></p>
+        <p class="legal__muted">
+          다만 전체 방문 수를 세기 위해 카운터를 1 올리는 요청이 브라우저 세션당 한 번 발생합니다.
+          이 요청에는 생년월일·이름·기기 정보 등 개인을 식별할 수 있는 값이 담기지 않습니다.
+          (모든 인터넷 요청과 마찬가지로 접속 IP 는 Google 인프라 로그에 일시적으로 남을 수 있으며,
+          이는 본 서비스가 조회하거나 보관하지 않습니다.)
+        </p>
+        <p><b>구글 로그인을 한 경우</b></p>
+        <ul class="legal__list">
+          <li>구글 계정의 표시 이름, 이메일 주소, 프로필 사진 주소</li>
+          <li>구글이 발급한 고유 식별자(UID)</li>
+          <li>가입 시각, 최근 접속 시각, 방문 횟수</li>
+        </ul>
+        <p><b>“이 브라우저에 기억해 두기”를 켠 경우</b></p>
+        <ul class="legal__list">
+          <li>생년월일, 태어난 시각, 성별, 출생지</li>
+        </ul>
+
+        <h3>2. 이용 목적</h3>
+        <ul class="legal__list">
+          <li>로그인한 이용자를 식별하고, 저장한 명식을 다른 기기에서도 불러오기 위해</li>
+          <li>서비스 이용 규모를 파악하기 위해 (방문 수)</li>
+        </ul>
+        <p class="legal__muted">광고·마케팅·프로파일링에 이용하지 않습니다.</p>
+
+        <h3>3. 보관과 파기</h3>
+        <ul class="legal__list">
+          <li><b>명식 정보</b> — 화면에서 “이 브라우저에 기억해 두기”를 끄면 즉시 삭제됩니다.</li>
+          <li><b>계정 정보</b> — 로그아웃해도 유지되며, 계정 삭제를 요청하시면 지체 없이 파기합니다.</li>
+          <li><b>방문 수</b> — 개인과 연결되지 않은 숫자이므로 개인정보에 해당하지 않습니다.</li>
+        </ul>
+
+        <h3>4. 처리 위탁 및 보관 위치</h3>
+        <p>
+          저장과 인증은 <b>Google LLC</b> 의 Firebase(Authentication · Cloud Firestore · Hosting)를 씁니다.
+          데이터베이스 리전은 <b>asia-northeast3(서울)</b> 입니다.
+          글꼴은 Google Fonts 에서 내려받으므로 그 과정에서 브라우저 기본 정보가 Google 에 전달됩니다.
+        </p>
+
+        <h3>5. 제3자 제공</h3>
+        <p>없습니다. 분석 도구나 광고 스크립트를 넣지 않았습니다.</p>
+
+        <h3>6. 이용자의 권리</h3>
+        <p>
+          열람·정정·삭제·처리정지를 언제든 요청하실 수 있습니다.
+          저장한 명식은 로그인 후 명식 화면에서 직접 지울 수 있고,
+          계정 자체의 삭제는 아래 문의처로 알려주시면 처리합니다.
+        </p>
+
+        <h3>7. 관리자가 볼 수 있는 범위</h3>
+        <p>
+          관리자는 <b>로그인한 이용자</b>의 이름·이메일·가입일·최근 접속 시각·방문 횟수와,
+          이용자가 저장을 선택한 명식을 볼 수 있습니다.
+          <b>로그인하지 않은 방문은 숫자로만</b> 보이며 누구인지 알 수 없습니다.
+        </p>
+
+        <h3>8. 문의처</h3>
+        <p>
+          개인정보 열람·정정·삭제·처리정지 요청이나 그 밖의 문의는 아래로 연락해 주세요.
+        </p>
+        <ul class="legal__list">
+          <li>개인정보 보호책임자 — 사이트 운영자</li>
+          <li>이메일 — <a href="mailto:wooyoung1574@naver.com">wooyoung1574@naver.com</a></li>
+        </ul>
+        <p class="legal__muted">
+          접수된 요청은 확인 후 지체 없이 처리하고 결과를 회신합니다.
+        </p>
+
+        <h3>9. 시행일</h3>
+        <p class="legal__muted">이 방침은 <span data-year></span>년부터 적용됩니다. 변경 시 이 화면에 공지합니다.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+</main>
+
+<script src="assets/js/calendar.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/sky.js"></script>
+<script src="assets/js/layout.js"></script>
+</body>
+</html>

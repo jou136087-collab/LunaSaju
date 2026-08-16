@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LUNE — 사주, 조용히 읽는 시간</title>
+<meta name="description" content="절기와 진태양시로 정확히 세운 명식. 여덟 글자를 담백하게 읽어주는 사주풀이.">
+<meta name="theme-color" content="#F4F1EA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23161513' stroke-width='1.5'/%3E%3Cpath d='M16 5a11 11 0 000 22z' fill='%23161513'/%3E%3C/svg%3E">
+</head>
+<body data-page="saju">
+
+<canvas id="sky" class="sky" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar" id="topbar"></header>
+<aside class="side" id="sidebar"></aside>
+<div class="scrim" id="scrim" hidden></div>
+
+<main class="main" id="main" tabindex="-1">
+
+  <div class="hero">
+    <div class="hero__inner wrap">
+      <h1 class="hero__title">
+        <span class="reveal" style="--d:.05s">태어난 순간의</span>
+        <span class="reveal" style="--d:.14s"><em>하늘</em>을 그대로</span>
+        <span class="reveal" style="--d:.23s">옮겨 적습니다</span>
+      </h1>
+      <p class="hero__sub reveal" style="--d:.34s">
+        점을 치지 않습니다. 태양의 각도와 그 지역의 진짜 정오를 계산해
+        당신의 자리에 있던 여덟 글자를 세우고, 그 성질을 담백하게 풀어냅니다.
+      </p>
+      <div class="hero__cta reveal" style="--d:.42s">
+        <a class="btn btn--solid" href="#reading">결과 보러 가기</a>
+        <a class="btn btn--ghost" href="principle.html">계산 방식 보기</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="reading">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="micro">입력</span>
+        <h2 class="sec-title">언제, 어디에서<br>시작하셨나요</h2>
+      </div>
+
+      <form class="form reveal" id="sajuForm" novalidate>
+        <div class="form__grid"></div>
+        <div class="form__submit">
+          <button class="btn btn--solid" type="submit">결과 보기</button>
+          <button class="btn btn--ghost" type="button" data-recall hidden>저장된 내 정보 불러오기</button>
+          <label class="check check--inline">
+            <input type="checkbox" id="rememberMe">
+            <span>이 브라우저에 기억해 두기</span>
+          </label>
+          <p class="form__note">
+            출생지는 <b>서울(동경 126.98°)</b> 기준으로 진태양시를 보정합니다.
+            다른 지역에서 태어나셨다면 <a href="couple.html">커플 궁합</a> 화면에서 지역을 직접 고를 수 있습니다.
+            입력값은 브라우저 안에서만 계산되며 서버로 전송되지 않습니다.
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--result" id="result" hidden>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro">명식</span>
+        <p class="ganji-line" id="ganjiLine"></p>
+        <h2 class="sec-title" id="resultTitle">사주 원국</h2>
+        <p class="sec-desc" id="resultMeta"></p>
+      </div>
+
+      <div class="pillars" id="pillars"></div>
+      <p class="pillars__legend">
+        위 = 천간(드러난 나) · 아래 = 지지(딛고 선 자리) ·
+        각 글자 옆의 작은 글씨는 일간에서 본 관계(십성)
+      </p>
+
+      <div class="card card--master" id="masterCard"></div>
+
+      <div class="split">
+        <div class="card">
+          <span class="micro">오행 분포</span>
+          <h3 class="card__title">타고난 재료의 비율</h3>
+          <div class="bars" id="elementBars"></div>
+          <p class="card__note" id="elementNote"></p>
+        </div>
+        <div class="card">
+          <span class="micro">십성 분포</span>
+          <h3 class="card__title">기운이 쓰이는 방향</h3>
+          <div class="bars bars--god" id="godBars"></div>
+          <p class="card__note" id="godNote"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="micro">참고 지표 — 일간의 힘</span>
+        <div class="gauge">
+          <div class="gauge__track"><div class="gauge__fill" id="gaugeFill"></div><div class="gauge__mid"></div></div>
+          <div class="gauge__labels"><span>신약 · 도움이 필요한 쪽</span><span>신강 · 스스로 미는 쪽</span></div>
+        </div>
+        <p class="card__note" id="gaugeNote"></p>
+      </div>
+
+      <div class="sec-head sec-head--sub">
+        <span class="micro">대운</span>
+        <h2 class="sec-title">10년 단위로 바뀌는 계절</h2>
+        <p class="sec-desc" id="luckMeta"></p>
+      </div>
+      <div class="luck" id="luckStrip"></div>
+      <p class="card__note" id="luckNote"></p>
+
+      <div class="card card--year" id="yearCard"></div>
+
+      <div class="result__actions">
+        <button class="btn btn--ghost" type="button" id="printBtn">인쇄 / PDF 저장</button>
+        <button class="btn btn--ghost" type="button" id="againBtn">다시 입력하기</button>
+        <a class="btn btn--ghost" href="couple.html">이 명식으로 궁합 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+</main>
+
+<script src="assets/js/calendar.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/saju.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/datefield.js"></script>
+<script src="assets/js/birthform.js"></script>
+<script src="assets/js/sky.js"></script>
+<script src="assets/js/layout.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

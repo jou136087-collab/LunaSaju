@@ -1,0 +1,95 @@
+rules_version = '2';
+
+/* =========================================================================
+ * LUNE — Firestore 보안 규칙
+ *
+ * 이 파일이 실제 권한의 유일한 근거다.
+ * firebase-config.js 의 adminUids 는 화면에 관리 메뉴를 띄울지 정할 뿐이고,
+ * 클라이언트가 고칠 수 있으므로 권한 판정에 쓰지 않는다.
+ *
+ * 원칙
+ *   · 사용자 문서는 본인만 읽고 쓴다. 목록 조회는 관리자만.
+ *   · 저장할 수 있는 필드를 화이트리스트로 못 박아, 임의 필드 주입을 막는다.
+ *   · 방문 카운터는 비로그인도 올릴 수 있되 "정확히 +1" 만 허용한다.
+ *     (읽기는 관리자만 — 방문 수는 공개 정보가 아니다)
+ *   · 그 밖의 모든 경로는 차단.
+ * ========================================================================= */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /* ── 관리자 ─────────────────────────────────────────────────────
+     * 콘솔 → Authentication → 사용자 에서 본인 UID 를 복사해 넣는다.
+     * firebase-config.js 의 adminUids 와 같은 값으로 맞출 것.
+     *   예) return ['aBcD1234...'];
+     * ------------------------------------------------------------- */
+    function adminUids() {
+      return ['w5AgWJ2zjBesnENYhGrkHVevhxp1'];
+    }
+    function isAdmin() {
+      return request.auth != null && request.auth.uid in adminUids();
+    }
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    /* ── 사용자 ─────────────────────────────────────────────────── */
+    function userFieldsOk() {
+      return request.resource.data.keys().hasOnly([
+        'displayName', 'email', 'photoURL',
+        'createdAt', 'lastSeenAt', 'visits', 'profile'
+      ]);
+    }
+    function profileOk() {
+      return !('profile' in request.resource.data)
+          || request.resource.data.profile == null
+          || request.resource.data.profile is map;
+    }
+    function visitsOk() {
+      return !('visits' in request.resource.data)
+          || request.resource.data.visits is int;
+    }
+
+    match /users/{uid} {
+      allow get:    if isOwner(uid) || isAdmin();
+      allow list:   if isAdmin();
+
+      allow create: if isOwner(uid) && userFieldsOk() && profileOk() && visitsOk();
+      allow update: if isOwner(uid) && userFieldsOk() && profileOk() && visitsOk();
+      allow delete: if isOwner(uid);
+
+      /* 저장한 명식 — 본인만 */
+      match /charts/{chartId} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+
+    /* ── 방문 집계 ──────────────────────────────────────────────────
+     * stats/global          누적 방문 수
+     * stats/day_YYYY-MM-DD  그날의 방문 수
+     * 문서 모양은 { count: int, updatedAt: timestamp } 하나로 통일한다.
+     * ------------------------------------------------------------- */
+    function counterShape() {
+      return request.resource.data.keys().hasOnly(['count', 'updatedAt'])
+          && request.resource.data.count is int;
+    }
+
+    match /stats/{docId} {
+      allow get, list: if isAdmin();
+
+      // 첫 방문 — 1 로만 만들 수 있다
+      allow create: if counterShape() && request.resource.data.count == 1;
+      // 이후 — 정확히 1 씩만 올릴 수 있다 (한 번에 크게 부풀리는 것을 막는다)
+      // resource 존재 확인은 이 규칙이 생성 요청에도 함께 평가될 때 나는
+      // evaluation error 를 없애기 위한 것이다 (결과는 같지만 로그가 깨끗해진다)
+      allow update: if resource != null
+                    && counterShape()
+                    && request.resource.data.count == resource.data.count + 1;
+      allow delete: if false;
+    }
+
+    /* ── 나머지 전부 차단 ───────────────────────────────────────── */
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

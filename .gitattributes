@@ -1,0 +1,9 @@
+# 여러 PC(Windows/macOS)에서 작업해도 줄바꿈 때문에 통째로 diff 가 뜨지 않도록
+# 저장소 안에서는 LF 로 통일한다.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff binary
+*.woff2 binary

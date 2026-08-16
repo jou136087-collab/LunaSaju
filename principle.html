@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>계산 원리 — LUNE</title>
+<meta name="description" content="달력이 아니라 하늘을 기준으로. 태양황경·율리우스일·진태양시·자오선 변천을 직접 계산합니다.">
+<meta name="theme-color" content="#F4F1EA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23161513' stroke-width='1.5'/%3E%3Cpath d='M16 5a11 11 0 000 22z' fill='%23161513'/%3E%3C/svg%3E">
+</head>
+<body data-page="principle">
+
+<canvas id="sky" class="sky" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="topbar" id="topbar"></header>
+<aside class="side" id="sidebar"></aside>
+<div class="scrim" id="scrim" hidden></div>
+
+<main class="main" id="main" tabindex="-1">
+  <section class="section section--lead section--dark">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="micro">계산 원리</span>
+        <h2 class="sec-title">달력이 아니라<br>하늘을 기준으로</h2>
+      </div>
+      <div class="specs">
+        <div class="spec reveal">
+          <span class="micro">년주 · 월주</span>
+          <h3>태양황경 기준</h3>
+          <p>새해는 1월 1일이 아니라 <b>입춘</b>에 바뀝니다. 달이 바뀌는 기준도 절기입니다. 태양의 겉보기 황경을 직접 계산해 315°(입춘)부터 30°씩 열두 구간으로 나눠 월지를 정합니다.</p>
+        </div>
+        <div class="spec reveal" style="--d:.08s">
+          <span class="micro">일주</span>
+          <h3>율리우스일 연속 계산</h3>
+          <p>60갑자 일진은 기원전부터 끊기지 않고 이어집니다. 율리우스 적일로 환산해 오차 없이 셉니다. 23시 이후 출생은 전통에 따라 다음 날 일진으로 넘깁니다.</p>
+        </div>
+        <div class="spec reveal" style="--d:.16s">
+          <span class="micro">시주</span>
+          <h3>진태양시 보정</h3>
+          <p>한국 표준시는 동경 135°가 기준이지만 서울의 실제 경도는 약 127°입니다. 그만큼 해가 늦게 뜹니다. 출생지 경도로 약 30분을 보정해 <b>그 자리의 진짜 정오</b>를 씁니다.</p>
+        </div>
+        <div class="spec reveal" style="--d:.24s">
+          <span class="micro">역사 보정</span>
+          <h3>자오선 변천 · 서머타임</h3>
+          <p>한국은 1954~1961년 동경 127.5°(UTC+8:30)를 썼고, 1948~1960년과 1987~88년에 서머타임이 있었습니다. 해당 시기 출생자는 이를 반영하지 않으면 시주가 통째로 어긋납니다.</p>
+        </div>
+      </div>
+
+      <div class="verify">
+        <span class="micro">정확도 검증</span>
+        <h3>공표 절기와 1분 이내</h3>
+        <p>
+          저정밀 근사식은 오차가 0.01°, 시간으로는 약 15분입니다. 절입 경계에 태어난 사람은
+          <b>월주가 통째로 뒤바뀝니다.</b> 그래서 VSOP87 절단 급수로 태양황경을 직접 계산합니다.
+          아래 표는 미리 적어둔 숫자가 아니라 <b>지금 이 화면에서 계산한 값</b>입니다.
+        </p>
+        <div class="verify__table" id="verifyTable"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="result__actions" style="margin-top:0">
+        <a class="btn btn--solid" href="index.html">내 명식 보러 가기</a>
+        <a class="btn btn--ghost" href="method.html">읽는 법 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+</main>
+
+<script src="assets/js/calendar.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/sky.js"></script>
+<script src="assets/js/layout.js"></script>
+</body>
+</html>

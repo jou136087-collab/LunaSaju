@@ -1,0 +1,21 @@
+{
+  "name": "lune-saju",
+  "private": true,
+  "version": "1.0.0",
+  "description": "LUNE 사주풀이 — 정적 사이트. 사이트 자체는 의존성이 없다.",
+  "type": "module",
+  "scripts": {
+    "test": "node tools/test-astro.mjs && node tools/test-saju.mjs && node tools/test-compat.mjs && node tools/contrast-check.mjs",
+    "test:rules": "firebase emulators:exec --only firestore --project demo-lune \"node tools/test-rules.mjs\"",
+    "serve": "firebase emulators:start --only hosting --project demo-lune",
+    "deploy": "firebase deploy"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^4.0.1"
+  },
+  "comment": [
+    "devDependencies 는 firestore.rules 검증에만 쓴다.",
+    "사이트 코드는 어떤 패키지도 import 하지 않으며, npm install 없이도 index.html 이 동작한다.",
+    "npm test 는 설치 없이 바로 실행된다. npm run test:rules 만 설치와 firebase-tools 가 필요하다."
+  ]
+}
